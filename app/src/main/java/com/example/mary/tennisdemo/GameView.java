@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -13,9 +14,11 @@ import android.view.SurfaceView;
 //it's a good idea to separate shadows from the main images
 // not naow dammit
 
-public class GameView extends SurfaceView {
+public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private Bitmap button;
+    private GameRunner runner;
+    private Game game;
 
     public GameView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -48,9 +51,41 @@ public class GameView extends SurfaceView {
             surfaceHolder.unlockCanvasAndPost(canvas);
         }
 
-
         return true;
     }
 
 
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+        Log.d("DJG", "created");
+        game = new Game(holder, getResources());
+        runner = new GameRunner(game);
+        runner.start();
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+        Log.d("DJG", "changed");
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+        Log.d("DJG", "destroyed");
+        if (runner != null) {
+            runner.shutdown();
+            // must wait until runner is fully shut down, because the surface has been shut down
+            // already & we don't want runner to try to draw on a non-existent surface
+
+            while (runner != null) {
+                try {
+                    //method that waits for the thread to terminate
+                    runner.join();
+                    runner = null;
+                } catch (InterruptedException e) {
+
+                }
+
+            }
+        }
+    }
 }
