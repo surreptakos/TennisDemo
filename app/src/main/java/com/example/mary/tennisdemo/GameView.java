@@ -11,7 +11,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 //it's a good idea to separate shadows from the main images
-
+// not naow dammit
 
 public class GameView extends SurfaceView {
 
@@ -51,4 +51,6 @@ public class GameView extends SurfaceView {
 
         return true;
     }
+
+
 }
