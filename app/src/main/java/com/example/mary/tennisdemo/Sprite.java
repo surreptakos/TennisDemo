@@ -47,8 +47,7 @@ public class Sprite {
     }
 
     public Rect getScreenRect() {
-        Rect rect = new Rect((int) x, (int) y, (int) x + getRect().width(), (int) y + getRect().height());
-        return rect;
+        return new Rect((int) x, (int) y, (int) x + getRect().width(), (int) y + getRect().height());
     }
 
     public float getX() {

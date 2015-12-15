@@ -1,9 +1,5 @@
 package com.example.mary.tennisdemo;
 
-/**
- * Created by Mary on 12/10/2015.
- */
-
 // the job of this class is to update the surface frame by frame
 
 //we are using Thread instead of async task bc we want to force updates to happen when we want

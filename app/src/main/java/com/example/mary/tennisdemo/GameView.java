@@ -1,7 +1,6 @@
 package com.example.mary.tennisdemo;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -9,11 +8,9 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 //it's a good idea to separate shadows from the main images
-// not naow dammit
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
-    private Bitmap button;
     private GameRunner runner;
     private Game game;
 
@@ -47,14 +44,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         runner.start();
     }
 
-    //Sunday
-
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
         Log.d("DJG", "changed");
     }
 
-    //sprite represents something visual on a screen, which may be animated itself
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
@@ -70,6 +64,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                     runner.join();
                     runner = null;
                 } catch (InterruptedException e) {
+                    Log.d("DJG", "Uh oh spaghettios");
 
                 }
 
