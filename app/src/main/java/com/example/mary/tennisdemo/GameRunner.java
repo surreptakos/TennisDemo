@@ -23,7 +23,11 @@ public class GameRunner extends Thread {
 
     @Override
     public void run() {
+        game.init();
+
         long lastTime = System.currentTimeMillis();
+
+        // Game loop
         while (running) {
             //draw stuff
             long now = System.currentTimeMillis();

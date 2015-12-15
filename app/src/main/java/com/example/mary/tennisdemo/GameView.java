@@ -2,9 +2,6 @@ package com.example.mary.tennisdemo;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -22,8 +19,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     public GameView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        Log.d("DJG", "here");
 
-        button = BitmapFactory.decodeResource(getResources(), R.drawable.button);
+        SurfaceHolder holder = getHolder();
+
+        holder.addCallback(this);
+
     }
 
     @Override
@@ -34,23 +35,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         //returning false will get you the touch event, but it won't, for example, get you drag
         // events -- bc you can't have a drag event without a touch event
 
-        //synchronizing this object will not prevent other portions of code from modifying it.
-        SurfaceHolder surfaceHolder = getHolder();
-
-        //locks the canvas so no one else can draw on it, and returns it to us. will return null if
-        // it can't lock it
-        Canvas canvas = surfaceHolder.lockCanvas();
-
-        if (canvas != null) {
-            //fills canvas with particular color
-            canvas.drawColor(Color.WHITE);
-
-            //must load bitmap before drawing it (see constructor above)
-            canvas.drawBitmap(button, 50, 50, null);
-
-            surfaceHolder.unlockCanvasAndPost(canvas);
-        }
-
         return true;
     }
 
@@ -58,7 +42,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         Log.d("DJG", "created");
-        game = new Game(holder, getResources());
+        game = new Game(getWidth(), getHeight(), holder, getResources());
         runner = new GameRunner(game);
         runner.start();
     }
@@ -69,6 +53,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
         Log.d("DJG", "changed");
     }
+
+    //sprite represents something visual on a screen, which may be animated itself
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
