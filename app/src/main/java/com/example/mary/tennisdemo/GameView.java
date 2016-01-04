@@ -32,6 +32,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         //returning false will get you the touch event, but it won't, for example, get you drag
         // events -- bc you can't have a drag event without a touch event
 
+        //recovering from hangover, not enough time
+
         return true;
     }
 
