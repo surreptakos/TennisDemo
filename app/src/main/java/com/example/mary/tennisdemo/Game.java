@@ -13,6 +13,8 @@ public class Game {
     private Resources resources;
 
     private Ball ball;
+    private Bat player;
+    private Bat opponent;
 
 
     public Game(int screenWidth, int screenHeight, SurfaceHolder holder, Resources resources) {
@@ -20,6 +22,8 @@ public class Game {
         this.resources = resources;
 
         ball = new Ball(screenWidth, screenHeight);
+        player = new Bat(screenWidth, screenHeight, Bat.Position.LEFT);
+        opponent = new Bat(screenWidth, screenHeight, Bat.Position.RIGHT);
     }
 
     //called once the game starts
@@ -27,7 +31,13 @@ public class Game {
         Bitmap ballImage = BitmapFactory.decodeResource(resources, R.drawable.button);
         Bitmap ballShadowImage = BitmapFactory.decodeResource(resources, R.drawable.buttonshadow);
 
+        Bitmap batImage = BitmapFactory.decodeResource(resources, R.drawable.bat);
+        Bitmap batShadowImage = BitmapFactory.decodeResource(resources, R.drawable.batshadow);
+
+
         ball.init(ballImage, ballShadowImage);
+        player.init(batImage, batShadowImage);
+        opponent.init(batImage, batShadowImage);
 
     }
 
@@ -43,6 +53,8 @@ public class Game {
         if (canvas != null) {
             canvas.drawColor(Color.WHITE);
             ball.draw(canvas);
+            player.draw(canvas);
+            opponent.draw(canvas);
 
             holder.unlockCanvasAndPost(canvas);
         }
