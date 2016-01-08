@@ -47,6 +47,8 @@ public class Ball extends Sprite {
 
     }
 
+    //baked
+
     @Override
     public void init(Bitmap image, Bitmap shadow) {
         super.init(image, shadow);
